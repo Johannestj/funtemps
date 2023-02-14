@@ -41,7 +41,7 @@ Det er anbefalt å bruke denne funksjonen i testene hvor float64 er innvolvert.
 Testen vi hadde foreslått var
 ```
 for _, tc := range tests {
-  got := FarhenheitToCelsius(tc.input)
+  got := FahrenheitToCelsius(tc.input)
   if !reflect.DeepEqual(tc.want, got) {
     t.Errorf("expected: %v, got: %v", tc.want, got)
   }
@@ -52,7 +52,7 @@ Og hvis vi erstatter !reflect.DeepEqual(tc.want, got) med
 !withinTolerance(tc.want, got, 1e-12) så får vi
 ```
 for _, tc := range tests {
-  got := FarhenheitToCelsius(tc.input)
+  got := FahrenheitToCelsius(tc.input)
   if !withinTolerance(tc.want, got, 1e-12) {
     t.Errorf("expected: %.18f, got: %.18f", tc.want, got)
   }

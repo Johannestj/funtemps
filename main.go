@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"github.com/Johannestj/funtemps/conv"
+	//"github.com/Johannestj/funtemps/conv_test"
 )
 
 // Definerer flag-variablene i hoved-"scope"
@@ -27,7 +28,7 @@ func init() {
 	// Definerer og initialiserer flagg-variablene
 	flag.Float64Var(&fahr, "F", 0.0, "temperatur i grader fahrenheit")
 	// Du må selv definere flag-variablene for "C" og "K"
-	flag.StringVar(&out, "out", "C", "beregne temperatur i C - celsius, F - farhenheit, K- Kelvin")
+	flag.StringVar(&out, "out", "C", "beregne temperatur i C - celsius, F - fahrenheit, K- Kelvin")
 	flag.StringVar(&funfacts, "funfacts", "sun", "\"fun-facts\" om sun - Solen, luna - Månen og terra - Jorden")
 	flag.Float64Var(&kel, "K", 0.0, "temperatur i grader kelvin")
 	flag.Float64Var(&cel, "C", 0.0, "temperatur i grader celcius")
@@ -41,33 +42,33 @@ func main() {
 	flag.Parse()
 
 	if out == "C"&& isFlagPassed("F"){
-		fahr := conv.CelsiusToFarhenheit(cel)
-		fmt.Printf("%.2f°F is %.2f°C\n", fahr, cel)
+		fahr := conv.CelsiusToFahrenheit(cel)
+		fmt.Printf("%v°F is %.2f°C\n", fahr, cel)
 	}
 
 	if out == "F" && isFlagPassed("C") {
-        fahr := conv.CelsiusToFarhenheit(cel)
-        fmt.Printf("%.2f°C is %.2f°F\n", cel, fahr)
+        fahr := conv.CelsiusToFahrenheit(cel)
+        fmt.Printf("%v°C is %.2f°F\n", cel, fahr)
     }
 
 	if out == "K" && isFlagPassed("C") {
         kel := conv.CelsiusToKelvin(cel)
-        fmt.Printf("%.2f°C is %.2f°K\n", cel, kel)
+        fmt.Printf("%v°C is %.2f°K\n", cel, kel)
     }
 
 	if out == "C" && isFlagPassed("K") {
         cel := conv.KelvinToCelsius(kel)
-        fmt.Printf("%.2f°K is %.2f°C\n", kel, cel)
+        fmt.Printf("%v°K is %.2f°C\n", kel, cel)
     }
 
 	if out == "F" && isFlagPassed("K") {
-        fahr := conv.KelvinToFarhenheit(kel)
-        fmt.Printf("%.2f°K is %.2f°F\n", kel, fahr)
+        fahr := conv.KelvinToFahrenheit(kel)
+        fmt.Printf("%v°K is %.2f°F\n", kel, fahr)
     }
 
 	if out == "K" && isFlagPassed("F") {
-        kel := conv.FarhenheitToKelvin(fahr)
-        fmt.Printf("%.2f°F is %.2f°K\n", fahr, kel)
+        kel := conv.FahrenheitToKelvin(fahr)
+        fmt.Printf("%v°F is %.2f°K\n", fahr, kel)
     }
 
 

@@ -3,30 +3,30 @@ package conv
 /*
   I denne pakken skal alle konverteringfunksjonene
   implementeres. Bruk engelsk.
-    FarhenheitToCelsius
+    FahrenheitToCelsius
     CelsiusToFahrenheit
-    KelvinToFarhenheit
+    KelvinToFahrenheit
     ...
 */
 
-// Konverterer Farhenheit til Celsius
-func FarhenheitToCelsius(fahr float64) float64 {
+// Konverterer Fahrenheit til Celsius
+func FahrenheitToCelsius(fahr float64) float64 {
 	cel := (fahr - 32) * 5/9
 	return cel
 }
 
-func CelsiusToFarhenheit(cel float64) float64 {
+func CelsiusToFahrenheit(cel float64) float64 {
 	fahr := cel * 9/5 + 32
 	return fahr
 }
 
-func FarhenheitToKelvin(fahr float64) float64 {
-	kel := (fahr - 32) * (5/9) + 273.15
+func FahrenheitToKelvin(fahr float64) float64 {
+	kel := (fahr - 32) * 5/9 + 273.15
 	return kel
 }
 
-func KelvinToFarhenheit(kel float64) float64 {
-	fahr := (kel - 273.15) * (9/5) + 32
+func KelvinToFahrenheit(kel float64) float64 {
+	fahr := (kel - 273.15) * 9/5 + 32
 	return fahr
 }
 
