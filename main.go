@@ -4,7 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"github.com/Johannestj/funtemps/conv"
-	//"github.com/Johannestj/funtemps/conv_test"
+	"strings"
 )
 
 // Definerer flag-variablene i hoved-"scope"
@@ -37,79 +37,92 @@ func init() {
 
 }
 
+func formatNumber(number float64) string {
+    numStr := fmt.Sprintf("%.2f", number)
+    numParts := strings.Split(numStr, ".")
+    intPart := numParts[0]
+    intPartLen := len(intPart)
+
+    // Remove trailing zeros after decimal point
+    decPart := strings.TrimRight(numParts[1], "0")
+    if decPart == "" {
+        return intPart
+    }
+
+    // Format integer part with thousands separators
+    if intPartLen <= 3 {
+        return intPart + "." + decPart
+    }
+
+    start := intPartLen % 3
+    if start == 0 {
+        start = 3
+    }
+
+    var result string
+    for i, digit := range intPart {
+        if i == start {
+            result += " "
+            start += 3
+        }
+        result += string(digit)
+    }
+
+    return result + "." + decPart
+}
+
+// removes the decimal of zero for the input value
+func RemoveDecimal(number float64) string {
+    numStr := fmt.Sprintf("%.2f", number)
+    numParts := strings.Split(numStr, ".")
+    intPart := numParts[0]
+
+    decPart := strings.TrimRight(numParts[1], "0")
+    if decPart == "" {
+        return intPart
+    }
+    return intPart + "." + decPart
+}
+
+
 func main() {
 
 	flag.Parse()
 
-	if out == "C"&& isFlagPassed("F"){
-		fahr := conv.CelsiusToFahrenheit(cel)
-		fmt.Printf("%v°F is %.2f°C\n", fahr, cel)
+	if out == "C" && isFlagPassed("F"){
+		fahr := conv.FahrenheitToCelsius(fahr)
+		fmt.Printf("%.2f°F is %s°C\n", fahr, formatNumber(cel))
 	}
 
 	if out == "F" && isFlagPassed("C") {
         fahr := conv.CelsiusToFahrenheit(cel)
-        fmt.Printf("%v°C is %.2f°F\n", cel, fahr)
+        //fmt.Printf("%#v°C is %.2f°F\n", cel, fahr)
+		fmt.Printf("%.2f°C is %s°F\n", cel, formatNumber(fahr))
     }
 
 	if out == "K" && isFlagPassed("C") {
         kel := conv.CelsiusToKelvin(cel)
-        fmt.Printf("%v°C is %.2f°K\n", cel, kel)
+        //fmt.Printf("%#v°C is %.2f°K\n", cel, kel)
+		fmt.Printf("%.2f°C is %s°K\n", cel, formatNumber(kel))
     }
 
 	if out == "C" && isFlagPassed("K") {
         cel := conv.KelvinToCelsius(kel)
-        fmt.Printf("%v°K is %.2f°C\n", kel, cel)
+        //fmt.Printf("%#v°K is %.2f°C\n", kel, cel)
+		fmt.Printf("%.2f°K is %s°C\n", kel, formatNumber(cel))
     }
 
 	if out == "F" && isFlagPassed("K") {
         fahr := conv.KelvinToFahrenheit(kel)
-        fmt.Printf("%v°K is %.2f°F\n", kel, fahr)
+        //fmt.Printf("%#v°K is %.2f°F\n", kel, fahr)
+		fmt.Printf("%.2f°K is %s°F\n", kel, formatNumber(fahr))
     }
 
 	if out == "K" && isFlagPassed("F") {
         kel := conv.FahrenheitToKelvin(fahr)
-        fmt.Printf("%v°F is %.2f°K\n", fahr, kel)
+       //fmt.Printf("%#v°F is %.2f°K\n", fahr, kel)
+	   fmt.Printf("%v°F is %s°K\n", fahr, formatNumber(kel))
     }
-
-
-	/**
-	    Her må logikken for flaggene og kall til funksjoner fra conv og funfacts
-	    pakkene implementeres.
-
-	    Det er anbefalt å sette opp en tabell med alle mulige kombinasjoner
-	    av flagg. flag-pakken har funksjoner som man kan bruke for å teste
-	    hvor mange flagg og argumenter er spesifisert på kommandolinje.
-
-	        fmt.Println("len(flag.Args())", len(flag.Args()))
-			    fmt.Println("flag.NFlag()", flag.NFlag())
-
-	    Enkelte kombinasjoner skal ikke være gyldige og da må kontrollstrukturer
-	    brukes for å utelukke ugyldige kombinasjoner:
-	    -F, -C, -K kan ikke brukes samtidig
-	    disse tre kan brukes med -out, men ikke med -funfacts
-	    -funfacts kan brukes kun med -t
-	    ...
-	    Jobb deg gjennom alle tilfellene. Vær obs på at det er en del sjekk
-	    implementert i flag-pakken og at den vil skrive ut "Usage" med
-	    beskrivelsene av flagg-variablene, som angitt i parameter fire til
-	    funksjonene Float64Var og StringVar
-	*/
-
-	// Her er noen eksempler du kan bruke i den manuelle testingen
-	//fmt.Println(fahr, out, funfacts)
-
-	//fmt.Println("len(flag.Args())", len(flag.Args()))
-	//fmt.Println("flag.NFlag()", flag.NFlag())
-
-	//fmt.Println(isFlagPassed("out"))
-
-	// Eksempel på enkel logikk
-	//if out == "C" && isFlagPassed("F") {
-		// Kalle opp funksjonen FahrenheitToCelsius(fahr), som da
-		// skal returnere °C
-	//		fmt.Println("0°F er -17.78°C")
-	//}
-
 }
 
 // Funksjonen sjekker om flagget er spesifisert på kommandolinje
