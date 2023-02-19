@@ -72,7 +72,7 @@ func formatNumber(number float64) string {
 }
 
 // removes the decimal of zero for the input value
-func RemoveDecimal(number float64) string {
+/*func RemoveDecimal(number float64) string {
     numStr := fmt.Sprintf("%.2f", number)
     numParts := strings.Split(numStr, ".")
     intPart := numParts[0]
@@ -82,7 +82,7 @@ func RemoveDecimal(number float64) string {
         return intPart
     }
     return intPart + "." + decPart
-}
+}*/
 
 
 func main() {
@@ -121,7 +121,7 @@ func main() {
 	if out == "K" && isFlagPassed("F") {
         kel := conv.FahrenheitToKelvin(fahr)
        //fmt.Printf("%#v°F is %.2f°K\n", fahr, kel)
-	   fmt.Printf("%v°F is %s°K\n", fahr, formatNumber(kel))
+	   fmt.Printf("%.2f°F is %s°K\n", fahr, formatNumber(kel))
     }
 }
 
