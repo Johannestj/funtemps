@@ -90,7 +90,7 @@ func main() {
 	flag.Parse()
 
 	if out == "C" && isFlagPassed("F"){
-		fahr := conv.FahrenheitToCelsius(fahr)
+		cel := conv.FahrenheitToCelsius(fahr)
 		fmt.Printf("%.2f°F is %s°C\n", fahr, formatNumber(cel))
 	}
 
